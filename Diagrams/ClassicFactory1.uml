@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Factory.ClassicFactory</OriginalElement>
+  <nodes>
+    <node x="464.0" y="235.0">Instruments.Guitar</node>
+    <node x="688.0" y="80.0">Instruments.Builder.ViolinBuilder</node>
+    <node x="188.0" y="390.0">Factory.ElectricalFactory</node>
+    <node x="392.0" y="390.0">Factory.ClassicFactory</node>
+    <node x="532.0" y="80.0">Instruments.Builder.HarpBuilder</node>
+    <node x="192.00000000000003" y="155.0">Instruments.StringInstrument</node>
+    <node x="156.0" y="80.0">Instruments.Builder.DoubleBassBuilder</node>
+    <node x="320.0" y="0.0">Instruments.Builder.StringInstrumentBuilder</node>
+    <node x="597.0" y="310.0">FactoryProducer</node>
+    <node x="0.0" y="390.0">Factory.AcousticFactory</node>
+    <node x="360.0" y="80.0">Instruments.Builder.GuitarBuilder</node>
+    <node x="0.0" y="80.0">Instruments.Builder.BassBuilder</node>
+    <node x="100.00000000000003" y="235.0">Instruments.Violin</node>
+    <node x="364.0" y="235.0">Instruments.Harp</node>
+    <node x="212.0" y="310.0">Factory.BaseFactory</node>
+    <node x="216.00000000000003" y="235.0">Instruments.DoubleBass</node>
+    <node x="0.0" y="465.0">Main</node>
+    <node x="0.0" y="235.0">Instruments.Bass</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Instruments.Builder.GuitarBuilder" target="Instruments.Builder.StringInstrumentBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Instruments.Harp" target="Instruments.StringInstrument">
+      <point x="0.0" y="-15.0" />
+      <point x="404.0" y="215.0" />
+      <point x="315.20000000000005" y="215.0" />
+      <point x="35.19999999999999" y="15.0" />
+    </edge>
+    <edge source="Factory.ClassicFactory" target="Factory.BaseFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="472.0" y="365.0" />
+      <point x="325.33333333333337" y="365.0" />
+      <point x="45.33333333333337" y="15.0" />
+    </edge>
+    <edge source="Instruments.Builder.ViolinBuilder" target="Instruments.Builder.StringInstrumentBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="764.0" y="50.0" />
+      <point x="528.8000000000001" y="50.0" />
+      <point x="92.80000000000007" y="15.0" />
+    </edge>
+    <edge source="Instruments.Guitar" target="Instruments.StringInstrument">
+      <point x="0.0" y="-15.0" />
+      <point x="512.0" y="205.0" />
+      <point x="350.4" y="205.0" />
+      <point x="70.39999999999998" y="15.0" />
+    </edge>
+    <edge source="Instruments.Builder.HarpBuilder" target="Instruments.Builder.StringInstrumentBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="600.0" y="60.0" />
+      <point x="482.40000000000003" y="60.0" />
+      <point x="46.400000000000034" y="15.0" />
+    </edge>
+    <edge source="Factory.AcousticFactory" target="Factory.BaseFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="84.0" y="365.0" />
+      <point x="234.66666666666666" y="365.0" />
+      <point x="-45.33333333333334" y="15.0" />
+    </edge>
+    <edge source="Instruments.Violin" target="Instruments.StringInstrument">
+      <point x="0.0" y="-15.0" />
+      <point x="148.00000000000003" y="215.0" />
+      <point x="244.80000000000004" y="215.0" />
+      <point x="-35.19999999999999" y="15.0" />
+    </edge>
+    <edge source="Instruments.Bass" target="Instruments.StringInstrument">
+      <point x="0.0" y="-15.0" />
+      <point x="40.0" y="205.0" />
+      <point x="209.60000000000002" y="205.0" />
+      <point x="-70.4" y="15.0" />
+    </edge>
+    <edge source="Factory.ElectricalFactory" target="Factory.BaseFactory">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="Instruments.Builder.DoubleBassBuilder" target="Instruments.Builder.StringInstrumentBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="248.0" y="60.0" />
+      <point x="389.6" y="60.0" />
+      <point x="-46.39999999999998" y="15.0" />
+    </edge>
+    <edge source="Instruments.Builder.BassBuilder" target="Instruments.Builder.StringInstrumentBuilder">
+      <point x="0.0" y="-15.0" />
+      <point x="68.0" y="50.0" />
+      <point x="343.2" y="50.0" />
+      <point x="-92.80000000000001" y="15.0" />
+    </edge>
+    <edge source="Instruments.DoubleBass" target="Instruments.StringInstrument">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9" x="676.5277777777779" y="312.00000000000006" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
