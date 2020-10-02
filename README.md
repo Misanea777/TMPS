@@ -82,7 +82,7 @@ public class Main {
 <br>
 
 ### Program output:<br>
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/d1.png)
+![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/sc.png)
 <br>
 ### Diagram of program structure:
 ![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/d2.png)
