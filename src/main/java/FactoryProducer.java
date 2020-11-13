@@ -1,10 +1,11 @@
-import Factory.AcousticFactory;
-import Factory.BaseFactory;
-import Factory.ClassicFactory;
-import Factory.ElectricalFactory;
+import Factory.*;
+import Roles.BaseRole;
+
+import javax.management.relation.Role;
 
 public class FactoryProducer {
-    public static BaseFactory getFactory(String type) {
+
+    private static BaseFactory getRawFactory(String type) {
         switch (type){
             case "accustic":
                 return AcousticFactory.getInstance();
@@ -14,5 +15,10 @@ public class FactoryProducer {
                 return ElectricalFactory.getInstance();
         }
         return null;
+    }
+
+
+    public static BaseFactory getFactory(String type, BaseRole role) {
+        return new FactoryProxy(role, getRawFactory(type));
     }
 }

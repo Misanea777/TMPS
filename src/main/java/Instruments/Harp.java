@@ -1,30 +1,43 @@
 package Instruments;
 
-public class Harp implements StringInstrument {
-    private String name;
-    private String type;
-    private int nrOfStrings;
-    private float price;
+import Instruments.Locations.Location;
+
+public class Harp extends StringInstrument {
+
+    public Harp() {}
+    public Harp(Location location) {
+        super(location);
+    }
 
     @Override
     public void setName(String name) {
-        this.name = name;
+        super.name = name;
     }
 
 
     @Override
     public void setType(String type) {
-        this.type = type;
+        super.type = type;
     }
 
     @Override
     public void setNumberOfStrings(int stringsNr) {
-        this.nrOfStrings = stringsNr;
+        super.nrOfStrings = stringsNr;
     }
 
     @Override
     public void setPrice(float price) {
-        this.price = price;
+        super.price = price;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getType() {
+        return type;
     }
 
     @Override
