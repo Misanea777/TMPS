@@ -1,4 +1,4 @@
-# Topic: Creational Design Patterns
+# Topic: Structural Design Patterns
 ### Author: Filipescu Mihail
 #### Group: FAF-181
 ## Objectives:
