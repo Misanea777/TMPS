@@ -27,10 +27,10 @@ Some examples of from this category of design patterns are:<br>
 
 
 ## Implementation:<br>
-In this project I've implemented 4 creational design patterns (Proxy Bridge, Filter and Facade) with 
+In this project I've implemented 4 structural design patterns (Proxy Bridge, Filter and Facade) with 
 the emphasis on the objects of type Instruments:Guitar, Violin, Bass, etc. Type Instruments contains 3 attributes, *get* and *set* methods and *toString*, which is used 
 for output.<br>
-**Bridge DP**, I've implemented in **Instruments Package** and added the following classes: **Location**, **StoreLocation** and **WarehouseLocation** classes. For the Bridge pattern, I have two layers of abstraction: **StringInstrument** that is located somewhere **Location** (the second layer of abstraction).
+**Bridge DP**, I've implemented in **Instruments Package** and added the following classes: **Location**, **StoreLocation** and **WarehouseLocation** classes. For the Bridge pattern, I have two layers of abstraction: **StringInstrument** that is located in some **Location** (the second layer of abstraction).  **StringInstrument** is linked with **Location** via composition.
 First I defined a location interface:
 ```
 public interface Location {
@@ -84,7 +84,7 @@ public class FactoryProxy implements BaseFactory {
 }
 ```
 
-The __Filter__ allows to filter a set of objects using different criteria and chaining them in a decoupled way through logical operations. In the project it is implemented in **Filter** package and it has 4 different criteria: **CriteriaElectric**, **CriteriaGuitar** and **AndCriteria, OrCriteria** that can be used to combine criterias.
+The __Filter__ allows to filter a set of objects using different criteria and chaining them in a decoupled way through logical operations. In the project it is implemented in **Filter** package and it has 4 different criteria: **CriteriaElectric**, **CriteriaGuitar** and **AndCriteria, OrCriteria** that can be used to combine criterias. **Filter** and **StringInstrument** are in aggregation relationship.
 ```
 public class AndCriteria implements Criteria {
     private Criteria firstCriteria;
@@ -105,7 +105,7 @@ public interface Criteria {
 ```
 The concrete implementations can be found in the corresponding package.
 
-The __Facade__ is the last implemented DP and it's intent is to hide the complexities of the system and provides an interface to the client using which the client can access the system. It is implemented in **FactoryProducer** class. The method **getFactory()** allows user to get the desired factory, without knowing the details.
+The __Facade__ is the last implemented DP and it's intent is to hide the complexities of the system and provides an interface to the client using which the client can access the system. It is implemented in **FactoryProducer** class using aggregation. The method **getFactory()** allows user to get the desired factory, without knowing the details.
 ```
     public static BaseFactory getFactory(String type, BaseRole role) {
         return new FactoryProxy(role, getRawFactory(type));
