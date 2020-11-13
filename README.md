@@ -8,7 +8,7 @@
 ## Theory:
 **Design patterns** are typical solutions to common problems
 in software design. Each pattern is like a blueprint
-that can be customize to solve a particular
+that can be customized to solve a particular
 design problem.They define a common language that helps developer teams
 communicate more efficiently.<br>
 <br>
@@ -24,7 +24,7 @@ Some examples of this kind of design patterns are:<br>
 
 ## Implementation:<br>
 In this project I've implemented 4 creational design patterns (Abstract Factory, Factory Method, Singleton and Builder) with 
-the emphasis on the objects of type Instruments:Guitar, Violin, Bass, etc. Type Furniture contains 3 attributes, *get* and *set* methods and *toString*, which is used 
+the emphasis on the objects of type Instruments:Guitar, Violin, Bass, etc. Type Instruments contains 3 attributes, *get* and *set* methods and *toString*, which is used 
 for output.<br>
 **Singleton DP**, I've implemented in **AcousticFactory**, **ClassicFactory** and **ElectricalFactory** classes. For this I use a
 static attribute for instance.<br><br>
@@ -82,7 +82,7 @@ public class Main {
 <br>
 
 ### Program output:<br>
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/d1.png)
+![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/sc.png)
 <br>
 ### Diagram of program structure:
 ![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/d2.png)
