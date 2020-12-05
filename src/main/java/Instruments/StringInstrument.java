@@ -1,6 +1,7 @@
 package Instruments;
 
 import Instruments.Locations.Location;
+import Instruments.Locations.NoLocation;
 
 public abstract class StringInstrument {
     public Location location;
@@ -10,7 +11,9 @@ public abstract class StringInstrument {
     protected int nrOfStrings;
     protected float price;
 
-    public StringInstrument() {}
+    public StringInstrument() {
+        this.location = new NoLocation();
+    }
 
     public StringInstrument(Location location) {
         this.location = location;
@@ -23,4 +26,12 @@ public abstract class StringInstrument {
 
     abstract public String getName();
     abstract public String getType();
+    abstract public float getPrice();
+    abstract public int getNrOfStrings();
+
+    abstract public StringInstrument clone();
+
+    abstract public StringInstrumentMemento save();
+    abstract public void restore(StringInstrumentMemento memento);
+
 }

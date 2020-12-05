@@ -11,4 +11,5 @@ public class StoreLocation implements Location {
     public String getLocation() {
         return loc;
     }
+
 }

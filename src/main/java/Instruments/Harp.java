@@ -41,6 +41,40 @@ public class Harp extends StringInstrument {
     }
 
     @Override
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getNrOfStrings() {
+        return nrOfStrings;
+    }
+
+    @Override
+    public StringInstrument clone() {
+        Harp harp = new Harp();
+        harp.setName(this.name);
+        harp.setType(this.type);
+        harp.setPrice(this.price);
+        harp.setNumberOfStrings(this.nrOfStrings);
+        return harp;
+    }
+
+    @Override
+    public StringInstrumentMemento save() {
+        return new StringInstrumentMemento(this);
+    }
+
+    @Override
+    public void restore(StringInstrumentMemento memento) {
+        StringInstrument harp = memento.getState();
+        setName(harp.name);
+        setType(harp.type);
+        setPrice(harp.price);
+        setNumberOfStrings(harp.nrOfStrings);
+    }
+
+    @Override
     public String toString() {
         return "Harp{" +
                 "name='" + name + '\'' +
@@ -49,4 +83,6 @@ public class Harp extends StringInstrument {
                 ", price=" + price +
                 '}';
     }
+
+
 }

@@ -41,6 +41,40 @@ public class Violin extends StringInstrument {
     }
 
     @Override
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getNrOfStrings() {
+        return nrOfStrings;
+    }
+
+    @Override
+    public StringInstrument clone() {
+        Violin violin = new Violin();
+        violin.setName(this.name);
+        violin.setType(this.type);
+        violin.setPrice(this.price);
+        violin.setNumberOfStrings(this.nrOfStrings);
+        return violin;
+    }
+
+    @Override
+    public StringInstrumentMemento save() {
+        return new StringInstrumentMemento(this);
+    }
+
+    @Override
+    public void restore(StringInstrumentMemento memento) {
+        StringInstrument violin = memento.getState();
+        setName(violin.name);
+        setType(violin.type);
+        setPrice(violin.price);
+        setNumberOfStrings(violin.nrOfStrings);
+    }
+
+    @Override
     public String toString() {
         return "Violin{" +
                 "type='" + type + '\'' +
@@ -48,4 +82,6 @@ public class Violin extends StringInstrument {
                 ", price=" + price +
                 '}';
     }
+
+
 }

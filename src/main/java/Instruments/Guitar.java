@@ -40,6 +40,40 @@ public class Guitar extends StringInstrument {
     }
 
     @Override
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getNrOfStrings() {
+        return nrOfStrings;
+    }
+
+    @Override
+    public StringInstrument clone() {
+        Guitar guitar = new Guitar();
+        guitar.setName(this.name);
+        guitar.setType(this.type);
+        guitar.setPrice(this.price);
+        guitar.setNumberOfStrings(this.nrOfStrings);
+        return guitar;
+    }
+
+    @Override
+    public StringInstrumentMemento save() {
+        return new StringInstrumentMemento(this);
+    }
+
+    @Override
+    public void restore(StringInstrumentMemento memento) {
+        StringInstrument guitar = memento.getState();
+        setName(guitar.name);
+        setType(guitar.type);
+        setPrice(guitar.price);
+        setNumberOfStrings(guitar.nrOfStrings);
+    }
+
+    @Override
     public String toString() {
         return "Guitar{" +
                 "name='" + name + '\'' +
@@ -48,4 +82,6 @@ public class Guitar extends StringInstrument {
                 ", price=" + price +
                 '}';
     }
+
+
 }

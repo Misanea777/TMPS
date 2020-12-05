@@ -60,9 +60,9 @@ The process of creating different classes of instruments of different types is i
 ```
 public class Main {
     public static void main(String[] args){
-        BaseFactory classicFactory = FactoryProducer.getFactory("classic");
-        BaseFactory acousticFactory = FactoryProducer.getFactory("accustic");
-        BaseFactory electicFactory = FactoryProducer.getFactory("electric");
+        BaseFactory classicFactory = Factory.FactoryProducer.getFactory("classic");
+        BaseFactory acousticFactory = Factory.FactoryProducer.getFactory("accustic");
+        BaseFactory electicFactory = Factory.FactoryProducer.getFactory("electric");
 
         createAndPrintAllInstrumentsFromFactory(classicFactory);
         createAndPrintAllInstrumentsFromFactory(acousticFactory);

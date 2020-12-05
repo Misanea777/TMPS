@@ -40,6 +40,40 @@ public class DoubleBass extends StringInstrument {
     }
 
     @Override
+    public float getPrice() {
+        return price;
+    }
+
+    @Override
+    public int getNrOfStrings() {
+        return nrOfStrings;
+    }
+
+    @Override
+    public StringInstrument clone() {
+        DoubleBass doubleBass = new DoubleBass();
+        doubleBass.setName(this.name);
+        doubleBass.setType(this.type);
+        doubleBass.setPrice(this.price);
+        doubleBass.setNumberOfStrings(this.nrOfStrings);
+        return doubleBass;
+    }
+
+    @Override
+    public StringInstrumentMemento save() {
+        return new StringInstrumentMemento(this);
+    }
+
+    @Override
+    public void restore(StringInstrumentMemento memento) {
+        StringInstrument doubleBass = memento.getState();
+        setName(doubleBass.name);
+        setType(doubleBass.type);
+        setPrice(doubleBass.price);
+        setNumberOfStrings(doubleBass.nrOfStrings);
+    }
+
+    @Override
     public String toString() {
         return "DoubleBass{" +
                 "name='" + name + '\'' +
@@ -48,4 +82,6 @@ public class DoubleBass extends StringInstrument {
                 ", price=" + price +
                 '}';
     }
+
+
 }

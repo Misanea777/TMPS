@@ -1,3 +1,5 @@
+package Factory;
+
 import Factory.*;
 import Roles.BaseRole;
 
