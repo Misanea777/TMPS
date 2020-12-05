@@ -216,5 +216,5 @@ That way we can encapsulate the absence of an object by providing a substitutabl
 <br>
 ### Diagram of program structure:
 **Command and Memento implementation**
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/bridge.png)
+![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/CAM.png)
 
