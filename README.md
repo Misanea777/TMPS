@@ -1,9 +1,9 @@
-# Topic: Structural Design Patterns
+# Topic: Behavioral Design Patterns
 ### Author: Filipescu Mihail
 #### Group: FAF-181
 ## Objectives:
-1. **Study the Structural Design Patterns**<br>
-2. **Expanding previous laboratory work by adding some additional functionalities using some structural design patterns**<br>
+1. **Study and understand the Behavioral Design Patterns**<br>
+2. **Expanding previous laboratory work by adding some additional functionalities using some behavioral design patterns**<br>
 
 ## Theory:
 **Design patterns** are typical solutions to common problems
@@ -12,116 +12,209 @@ that can be customized to solve a particular
 design problem.They define a common language that helps developer teams
 communicate more efficiently.<br>
 <br>
-In software engineering, the **Structural Design Patterns** are concerned with how classes and objects are composed
- to form larger structures.
- Structural class patterns use inheritance to create a hierarchy of classes/abstractions,
- but the structural object patterns use composition which is generally a more flexible alternative to inheritance.<br>
+In software engineering, **behavioral design patterns** are design patterns that identify 
+common communication patterns between objects and realize these patterns.
+ By doing so, these patterns increase flexibility in carrying out this communication.
 Some examples of from this category of design patterns are:<br>
-- Adapter
-- Bridge
-- Composite
-- Decorator
-- Facade
-- Flyweight
-- Proxy
+- Chain of responsibility
+- Command
+- Interpreter
+- Iterator
+- Mediator
+- Observer
+- Null Object
+- Strategy
 
 
 ## Implementation:<br>
-In this project I've implemented 4 structural design patterns (Proxy Bridge, Filter and Facade) with 
-the emphasis on the objects of type Instruments:Guitar, Violin, Bass, etc. Type Instruments contains 3 attributes, *get* and *set* methods and *toString*, which is used 
+In this project I've implemented 3 behavioral design patterns (Command, Memento and Null Object) with 
+the emphasis on the objects of type Instruments: Guitar, Violin, Bass, etc. Type Instruments contains 3 attributes, *get* and *set* methods and *toString*, which is used 
 for output.<br>
-**Bridge DP**, I've implemented in **Instruments Package** and added the following classes: **Location**, **StoreLocation** and **WarehouseLocation** classes. For the Bridge pattern, I have two layers of abstraction: **StringInstrument** that is located in some **Location** (the second layer of abstraction).  **StringInstrument** is linked with **Location** via composition.
-First I defined a location interface:
+The __Memento DP__, I've implemented in **Instruments.memento Package** and added the following class: **StringInstrumentMemento**.
 ```
-public interface Location {
-    void setLocation(String locationAdress);
-    String getLocation();
-}
-```
-And with concrete classes for this interface:
-```
-public class StoreLocation implements Location {
-    private String loc;
-    @Override
-    public void setLocation(String locationAdress) {...}
-    @Override
-    public String getLocation() {...}
-}
+public class StringInstrumentMemento {
+    private State state;
 
-public class WarehouseLocation implements Location {
-    private String loc;
-    @Override
-    public void setLocation(String locationAdress) {...}
-    @Override
-    public String getLocation() {...}
+    public StringInstrumentMemento(State state) {
+        this.state = state;
+    }
+
+    public State getState() {
+        return state;
+    }
 }
 ```
-The **StringInstrument** abstraction has it's own concrete implementation (Bass, Guitar, ...) and has an instance of **Location**:
+Where **State** is just a placeholder for values that defines the state:
 ```
-public abstract class StringInstrument {
-    public Location location;
+public class State {
+    private String name;
+    private String type;
+    private int nrOfStrings;
+    private float price;
     ...
 }
 ```
-Therefore,  decoupling the abstraction from its implementation so that the two can vary independently.
-
-The __Proxy DP__ pattern allows us to create an intermediary that acts as an interface to another resource, while also hiding the underlying complexity of the component. In the project it is implemented in **FactoryProxy** class using composition. It has both instances of **BaseFactory** and **BaseRole** in order to limit access to users that do not have permission.
+The **StringInstrument** abstraction has **save()** and **restore()** methods that each concrete implementation (Bass, Guitar, ...) implements:
 ```
-public class FactoryProxy implements BaseFactory {
-    private BaseRole role;
-    private BaseFactory factory;
     ...
+    abstract public StringInstrumentMemento save();
+    abstract public void restore(StringInstrumentMemento memento);
+    ...
+}
+```
+In this way we can capture and externalize an object's internal state so that the object can be returned to this state later.
+
+The __Command DP__ pattern allows us to encapsulate a request as an object, thereby letting us parametrize clients with different requests, queue or log requests, and support undoable operations.<br>
+
+Firstly I have created the **Command Interface** that will define and group all concrete commands>
+```
+public interface Command {
+    void execute();
+    void unexecute();
+}
+```
+
+There is one of the concrete classes:
+```
+public class DoubleThePriceCommand implements Command{
+    StringInstrument instrument;
+    StringInstrumentMemento memento;
+
+    public DoubleThePriceCommand(StringInstrument instrument) {
+        this.instrument = instrument;
+    }
+
     @Override
-    public StringInstrument createInstrument(String type) {
-        if(role.getPrivilegeLvl() > 1) {
-            return factory.createInstrument(type);
+    public void execute() {
+        memento = instrument.save();
+        instrument.setPrice(instrument.getPrice() * 2);
+    }
+
+    @Override
+    public void unexecute() {
+        instrument.restore(memento);
+    }
+}
+```
+Notice how the **undo** operation is using **Memento DP**. In fact I have implemented **Memento** primarily for this case.<br>
+Also nothing stops us to create **Macro Commands** (in this case a hardcoded one):
+```
+public class DoubleThePriceAndChangeToAcousticCommand implements Command{
+    StringInstrument instrument;
+    StringInstrumentMemento memento;
+
+    public DoubleThePriceAndChangeToAcousticCommand(StringInstrument instrument) {
+        this.instrument = instrument;
+    }
+
+    @Override
+    public void execute() {
+        memento = instrument.save();
+        new DoubleThePriceCommand(instrument).execute();
+        new ChangeToAcousticCommand(instrument).execute();
+    }
+
+    @Override
+    public void unexecute() {
+        instrument.restore(memento);
+    }
+}
+```
+Here is an example of not hardcoded **Macro Command** that repeats the same command a number of times:
+```
+public class RepeatCommand implements Command{
+    StringInstrument instrument;
+    StringInstrumentMemento memento;
+    int repetitions;
+    Command command;
+
+    public RepeatCommand(StringInstrument instrument, int repetitions, Command command) {
+        this.instrument = instrument;
+        this.repetitions =repetitions;
+        this.command = command;
+    }
+    @Override
+    public void execute() {
+        memento = instrument.save();
+        for(int i=0; i<repetitions; i++) {
+            command.execute();
         }
-        else {
-            System.out.println("Permission denied!");
-            return null;
+    }
+
+    @Override
+    public void unexecute() {
+        instrument.restore(memento);
+    }
+}
+```
+Of course not all commands act on the same "reciver". Here the command acts on some **list** instead of **Instrument** element:
+```
+public class DeleteIfNotElectricCommand implements Command{
+    List<StringInstrument> instruments;
+    List<StringInstrument> memento;
+
+    public DeleteIfNotElectricCommand(List<StringInstrument> instruments) {
+        this.instruments = instruments;
+    }
+    @Override
+    public void execute() {
+        memento = new ArrayList<StringInstrument>(instruments);
+        instruments.clear();
+        instruments.addAll(new CriteriaElectric().meetCriteria(memento));
+    }
+
+    @Override
+    public void unexecute() {
+        instruments.clear();
+        instruments.addAll(memento);
+    }
+}
+```
+The **memento** in this case does not refer to the **Memento DP** because it is no need to do so, just named it memento for consistency.<br>
+And finally we have a "client" that is "loaded" with commands and can execute/unexecute them anytime: 
+```
+public class CommandExecutor {
+    private List<Command> commands = new ArrayList<Command>();
+
+    public void addCommand(Command command) {
+        commands.add(command);
+    }
+
+    public void removeAllComands() {
+        commands.clear();
+    }
+
+    public void executeAllCommands() {
+        for (Command command : commands) {
+            command.execute();
         }
     }
-}
-```
 
-The __Filter__ allows to filter a set of objects using different criteria and chaining them in a decoupled way through logical operations. In the project it is implemented in **Filter** package and it has 4 different criteria: **CriteriaElectric**, **CriteriaGuitar** and **AndCriteria, OrCriteria** that can be used to combine criterias. **Filter** and **StringInstrument** are in aggregation relationship.
-```
-public class AndCriteria implements Criteria {
-    private Criteria firstCriteria;
-    private Criteria secondCriteria;
-    ...
-    @Override
-    public List<StringInstrument> meetCriteria(List<StringInstrument> instruments) {
-        List<StringInstrument> firstCriteriaInstruments = firstCriteria.meetCriteria(instruments);
-        return secondCriteria.meetCriteria(firstCriteriaInstruments);
+    public void unexecuteAllCommands() {
+        for(int i=commands.size()-1; i>=0; i--) {
+            commands.get(i).unexecute();
+        }
+    }
+
+    public void executeLastCommand() {
+        commands.get(commands.size()-1).execute();
+    }
+
+    public void unexecuteLastCommand() {
+        commands.get(commands.size()-1).unexecute();
     }
 }
-```
-All of them fall in to the same abstraction **Criteria**, that is an interface:
-```
-public interface Criteria {
-    public List<StringInstrument> meetCriteria(List<StringInstrument> instruments);
-}
-```
-The concrete implementations can be found in the corresponding package.
-
-The __Facade__ is the last implemented DP and it's intent is to hide the complexities of the system and provides an interface to the client using which the client can access the system. It is implemented in **FactoryProducer** class using aggregation. The method **getFactory()** allows user to get the desired factory, without knowing the details.
-```
-    public static BaseFactory getFactory(String type, BaseRole role) {
-        return new FactoryProxy(role, getRawFactory(type));
     }
 ```
-Wich in fact returns a proxy and not the raw object. However, from the user side it is not known.
+
+The **Null Object DP** I have implemented as concretions for abstractions like **Command** (NullCommand concretion) and **Location** (NoLocation concretion).
+That way we can encapsulate the absence of an object by providing a substitutable alternative that offers suitable default do nothing behavior. 
+
 
 ### Program output:<br>
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/tmps1.png)
+![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/L3POUT.png)
 <br>
 ### Diagram of program structure:
-**Bridge implementation**
+**Command and Memento implementation**
 ![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/bridge.png)
-**Proxy implementation**
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/proxy.png)
-**Filter implementation**
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/filter.png)
-**Facade implementation**
-![Output](https://github.com/Misanea777/TMPS/blob/master/Diagrams/img/facade.png)
+
