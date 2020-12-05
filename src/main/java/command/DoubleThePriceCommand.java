@@ -1,7 +1,7 @@
 package command;
 
 import Instruments.StringInstrument;
-import Instruments.StringInstrumentMemento;
+import Instruments.memento.StringInstrumentMemento;
 
 public class DoubleThePriceCommand implements Command{
     StringInstrument instrument;

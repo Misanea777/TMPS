@@ -1,7 +1,7 @@
 package command;
 
 import Instruments.StringInstrument;
-import Instruments.StringInstrumentMemento;
+import Instruments.memento.StringInstrumentMemento;
 
 public class ChangeToAcousticCommand implements Command{
     StringInstrument instrument;

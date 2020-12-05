@@ -1,6 +1,8 @@
 package Instruments;
 
 import Instruments.Locations.Location;
+import Instruments.memento.State;
+import Instruments.memento.StringInstrumentMemento;
 
 public class Harp extends StringInstrument {
 
@@ -62,16 +64,16 @@ public class Harp extends StringInstrument {
 
     @Override
     public StringInstrumentMemento save() {
-        return new StringInstrumentMemento(this);
+        return new StringInstrumentMemento(new State(name, type, nrOfStrings, price));
     }
 
     @Override
     public void restore(StringInstrumentMemento memento) {
-        StringInstrument harp = memento.getState();
-        setName(harp.name);
-        setType(harp.type);
-        setPrice(harp.price);
-        setNumberOfStrings(harp.nrOfStrings);
+        State state = memento.getState();
+        setName(state.getName());
+        setType(state.getType());
+        setPrice(state.getPrice());
+        setNumberOfStrings(state.getNrOfStrings());
     }
 
     @Override

@@ -2,6 +2,7 @@ package Instruments;
 
 import Instruments.Locations.Location;
 import Instruments.Locations.NoLocation;
+import Instruments.memento.StringInstrumentMemento;
 
 public abstract class StringInstrument {
     public Location location;
